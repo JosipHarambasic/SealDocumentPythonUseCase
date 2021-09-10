@@ -9,6 +9,7 @@ import SealDocument
 import User
 import VisualSignature
 
+"""We use the parser to pass arguments to the code with the command line and also to show help if necessary"""
 parser = argparse.ArgumentParser(description="Seal your document with the Skribble API")
 parser.add_argument("PDFRootPath", help="Enter the root path of your document which has to be sealed")
 args = parser.parse_args()
