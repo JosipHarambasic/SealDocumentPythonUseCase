@@ -1,3 +1,4 @@
+import argparse
 import base64
 import json
 from json import JSONEncoder
@@ -8,8 +9,11 @@ import SealDocument
 import User
 import VisualSignature
 
+parser = argparse.ArgumentParser(description="Seal your document with the Skribble API")
+parser.add_argument("PDFRootPath", help="Enter the root path of your document which has to be sealed, it should look like this C:\\Users\\Desktop\\MyPDF.pdf")
+args = parser.parse_args()
 
-def main():
+def main(pdfPath):
     """Set the User credentials username and api-key"""
     userLogin = User.UserCredentials("api_demo_skribble_d901_0", "118d6d49-1415-4f8e-bd16-2a0ef03beaf9")
 
@@ -17,7 +21,7 @@ def main():
     token = userLogin.createToken()
 
     """give the full path of the pdf file that you want to seal"""
-    content = encodeToBase64("C:\\Users\\41786\\OneDrive\\Desktop\\FormField.pdf")
+    content = encodeToBase64(pdfPath)
 
     """make a visual signature where and how the seal should look like"""
     visual_signature = VisualSignature.VisualSignature(Position.Position(20,40,100,100,"0"))
@@ -47,6 +51,6 @@ class DocumentEncoder(JSONEncoder):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    main()
+    main(args.PDFRootPath)
 
 
