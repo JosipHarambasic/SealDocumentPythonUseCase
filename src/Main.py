@@ -31,8 +31,7 @@ def main(pdfPath):
     document = Document.Document(content, "ais_demo_seal", visual_signature)
 
     """transform the Document into a JSON file"""
-    documentAsString = DocumentEncoder.DocumentEncoder().encode(document)
-    documentAsJSON = json.loads(documentAsString)
+    documentAsJSON = json.loads(DocumentEncoder.DocumentEncoder().encode(document))
 
     """seal the document and get the Document ID so we can do further operations with it"""
     seal = SealDocument.SealDocument()
