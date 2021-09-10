@@ -1,7 +1,7 @@
 import argparse
 import base64
 import json
-from json import JSONEncoder
+import DocumentEncoder
 
 import Document
 import Position
@@ -10,7 +10,7 @@ import User
 import VisualSignature
 
 parser = argparse.ArgumentParser(description="Seal your document with the Skribble API")
-parser.add_argument("PDFRootPath", help="Enter the root path of your document which has to be sealed, it should look like this C:\\Users\\Desktop\\MyPDF.pdf")
+parser.add_argument("PDFRootPath", help="Enter the root path of your document which has to be sealed")
 args = parser.parse_args()
 
 def main(pdfPath):
@@ -30,7 +30,7 @@ def main(pdfPath):
     document = Document.Document(content, "ais_demo_seal", visual_signature)
 
     """transform the Document into a JSON file"""
-    documentAsString = DocumentEncoder().encode(document)
+    documentAsString = DocumentEncoder.DocumentEncoder().encode(document)
     documentAsJSON = json.loads(documentAsString)
 
     """seal the document and get the Document ID so we can do further operations with it"""
@@ -44,10 +44,6 @@ def encodeToBase64(filepath):
     with open(filepath, "rb") as pdf_file:
         return base64.b64encode(pdf_file.read()).decode("utf-8")
 
-"""Need this class to encode our Document Object into a JSON string"""
-class DocumentEncoder(JSONEncoder):
-    def default(self, o):
-        return o.__dict__
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
